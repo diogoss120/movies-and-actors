@@ -1,0 +1,58 @@
+﻿@model ExercicioEfManyToMany.Models.MovieActorsViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Movie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Movie.Id" />
+            <div class="form-group">
+                <label asp-for="Movie.Name" class="control-label"></label>
+                <input asp-for="Movie.Name" class="form-control" />
+                <span asp-validation-for="Movie.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 panel-manage-list">
+        <h6>Gerenciamento de filmes:</h6>
+
+        @foreach (var actor in Model.Movie.Actors)
+        {
+            <form method="post" asp-action="RemoveActor">
+                <input name="MovieId" type="hidden" asp-for="Movie.Id" />
+                <input name="ActorId" type="hidden" asp-for="@actor.Id" />
+                <label>@actor.Name</label>
+                <button type="submit" class="btn btn-danger">Remover</button>
+            </form>
+        }
+
+        @foreach (var actor in Model.ActorsNotAdded)
+        {
+            <form method="post" asp-action="AddActor">
+                <input name="MovieId" type="hidden" asp-for="Movie.Id" />
+                <input name="ActorId" type="hidden" asp-for="@actor.Id" />
+                <label>@actor.Name</label>
+                <button type="submit" class="btn btn-success">Adicionar</button>
+            </form>
+        }
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
