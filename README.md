@@ -6,6 +6,13 @@ Meu objetivo com ele é entender e praticar o relacionamento muitos para muitos 
 </p>
 
 
+## Para executar esse projeto:
+- realize o clone do repositório com o git bash ou faça o download
+- com o git bash ou terminal do sistema operacional, navegue até o diretório do projeto e execute:
+- dotnet restore  // para restaurar as dependências
+- dotnet watch run   // para rodar o projeto na linha de comando
+
+- * não precisa configurar banco de dados pois o sqlite está embutido no projeto, ele tem as tabelas e alguns dados iniciais
 
 ## 🛠 Tecnologias
 As seguintes ferramentas foram usadas na construção do projeto:
