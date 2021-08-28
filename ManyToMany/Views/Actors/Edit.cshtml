@@ -1,0 +1,55 @@
+﻿@model ActorMoviesViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4>Editar ator</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Actor.Id" />
+            <div class="form-group">
+                <label asp-for="Actor.Name" class="control-label"></label>
+                <input asp-for="Actor.Name" class="form-control" />
+                <span asp-validation-for="Actor.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 panel-manage-list">
+        <h6>Gerenciamento de filmes:</h6>
+
+        @foreach (var movie in Model.Actor.Movies)
+        {
+            <form method="post" asp-action="RemoveMovie">
+                <input name="ActorId" type="hidden" asp-for="Actor.Id" />
+                <input name="MovieId" type="hidden" asp-for="@movie.Id" />
+                <label>@movie.Name</label>
+                <button type="submit" class="btn btn-danger">Remover</button>
+            </form>
+        }
+
+        @foreach (var movie in Model.MoviesNotAdded)
+        {
+            <form method="post" asp-action="AddMovie">
+                <input name="ActorId" type="hidden" asp-for="Actor.Id" />
+                <input name="MovieId" type="hidden" asp-for="@movie.Id" />
+                <label>@movie.Name</label>
+                <button type="submit" class="btn btn-success">Adicionar</button>
+            </form>
+        }
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
